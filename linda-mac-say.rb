@@ -10,15 +10,17 @@ ts = linda.tuplespace["delta"]
 
 say = lambda{
   ts.take ["say"] do |tuple|
-    next if tuple.size < 2
     p tuple
-    speak = tuple[1].gsub(/[`"'\r\n;]/, '').strip
-    system "say #{speak}"
-    say.call
+    if tuple.size == 2
+      str = tuple[1].gsub(/[`"'\r\n;]/, '').strip # sanitize
+      system "say #{str}"
+      ts.write ["say", str, "success"]
+    end
+    say.call ## recursive call
   end
 }
 
-linda.io.on :connect do
+linda.io.on :connect do  ## RocketIO's "connect" event
   puts "connect!! <#{session}>"
   say.call
 end
