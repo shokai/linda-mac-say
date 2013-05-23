@@ -8,21 +8,16 @@ puts "connecting.. #{url}"
 linda = Sinatra::RocketIO::Linda::Client.new url
 ts = linda.tuplespace["delta"]
 
-say = lambda{
-  ts.take ["say"] do |tuple|
-    p tuple
-    if tuple.size == 2
-      str = tuple[1].gsub(/[`"'\r\n;]/, '').strip # sanitize
-      system "say #{str}"
-      ts.write ["say", str, "success"]
-    end
-    say.call ## recursive call
-  end
-}
-
 linda.io.on :connect do  ## RocketIO's "connect" event
   puts "connect!! <#{session}>"
-  say.call
+  ts.watch ["say"] do |tuple|
+    p tuple
+    if tuple.size == 2
+      str = tuple[1].gsub(/[`"'\r\n;]/, '').strip # sanitize input data
+      system "say #{str}"
+      ts.write ["say", str, "success"]  # write response
+    end
+  end
 end
 
 linda.io.on :disconnect do
