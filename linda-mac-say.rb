@@ -25,5 +25,10 @@ linda.io.on :connect do  ## RocketIO's "connect" event
   say.call
 end
 
+linda.io.on :disconnect do
+  puts "disconnected.."
+  exit 1
+end
+
 loop do
 end
