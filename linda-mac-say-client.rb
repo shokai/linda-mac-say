@@ -16,5 +16,4 @@ linda.io.on :connect do  ## RocketIO's "connect" event
   exit
 end
 
-loop do
-end
+linda.wait

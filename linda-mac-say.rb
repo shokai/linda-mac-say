@@ -21,9 +21,7 @@ linda.io.on :connect do  ## RocketIO's "connect" event
 end
 
 linda.io.on :disconnect do
-  puts "disconnected.."
-  exit 1
+  puts "RocketIO disconnected.."
 end
 
-loop do
-end
+linda.wait
