@@ -13,9 +13,10 @@ linda.io.on :connect do  ## RocketIO's "connect" event
   puts "connect!! <#{linda.io.session}> (#{linda.io.type})"
   ts.watch ["say"] do |tuple|
     p tuple
-    if tuple.size == 2
+    if tuple.size == 2 or (tuple.size == 3 and tuple[2].kind_of? Hash)
       str = tuple[1].gsub(/[`"'\r\n;]/, '').strip # sanitize input data
-      system "say #{str}"
+      opts = tuple[2] ? tuple[2].map{|k,v| "#{k} #{v}"}.join(' ').gsub(/[`"'\r\n;]/, '').strip : ""
+      system "say #{opts} #{str}"
       ts.write ["say", str, "success"]  # write response
     end
   end
