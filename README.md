@@ -9,6 +9,7 @@ Dependencies
 ------------
 - say command in Mac OS
 - Ruby 1.8.7 ~ 2.0.0
+- [LindaBase](https://github.com/shokai/linda-base)
 
 
 Install Dependencies
