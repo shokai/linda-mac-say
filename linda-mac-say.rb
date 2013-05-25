@@ -9,7 +9,7 @@ linda = Sinatra::RocketIO::Linda::Client.new url
 ts = linda.tuplespace["delta"]
 
 linda.io.on :connect do  ## RocketIO's "connect" event
-  puts "connect!! <#{session}>"
+  puts "connect!! <#{linda.io.session}> (#{linda.io.type})"
   ts.watch ["say"] do |tuple|
     p tuple
     if tuple.size == 2
