@@ -1,9 +1,10 @@
+
 Linda Mac Say
 =============
 text to audible speech with RocketIO::Linda
 
 * https://github.com/shokai/linda-mac-say
-
+* watch tuple ["say", word]
 
 Dependencies
 ------------
