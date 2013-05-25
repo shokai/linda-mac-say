@@ -3,10 +3,11 @@ require 'rubygems'
 require 'sinatra/rocketio/linda/client'
 $stdout.sync = true
 
-url = ARGV.shift || "http://linda.masuilab.org"
+url =   ENV["LINDA_BASE"]  || ARGV.shift || "http://localhost:5000"
+space = ENV["LINDA_SPACE"] || "test"
 puts "connecting.. #{url}"
 linda = Sinatra::RocketIO::Linda::Client.new url
-ts = linda.tuplespace["delta"]
+ts = linda.tuplespace[space]
 
 linda.io.on :connect do  ## RocketIO's "connect" event
   puts "connect!! <#{linda.io.session}> (#{linda.io.type})"

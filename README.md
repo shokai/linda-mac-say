@@ -21,7 +21,15 @@ Install Dependencies
 Run
 ---
 
-    % bundle exec ruby linda-mac-say.rb "http://linda.example.com"
+set ENV var "LINDA_BASE" and "LINDA_SPACE"
+
+    % export LINDA_BASE=http://linda.example.com
+    % export LINDA_SPACE=test
+    % bundle exec ruby linda-mac-say.rb
+
+or
+
+    % LINDA_BASE=http://linda.example.com LINDA_SPACE=test  bundle exec ruby linda-mac-say.rb
 
 
 Install as Service
