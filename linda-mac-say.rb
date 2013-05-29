@@ -3,6 +3,12 @@ require 'rubygems'
 require 'sinatra/rocketio/linda/client'
 $stdout.sync = true
 
+class String
+  def sanitize
+    self.gsub(/[`"'\r\n;\|><]/, '').strip
+  end
+end
+
 url =   ENV["LINDA_BASE"]  || ARGV.shift || "http://localhost:5000"
 space = ENV["LINDA_SPACE"] || "test"
 puts "connecting.. #{url}"
@@ -14,8 +20,8 @@ linda.io.on :connect do  ## RocketIO's "connect" event
   ts.watch ["say"] do |tuple|
     p tuple
     if tuple.size == 2 or (tuple.size == 3 and tuple[2].kind_of? Hash)
-      str = tuple[1].gsub(/[`"'\r\n;]/, '').strip # sanitize input data
-      opts = tuple[2] ? tuple[2].map{|k,v| "#{k} #{v}"}.join(' ').gsub(/[`"'\r\n;]/, '').strip : ""
+      str = tuple[1].sanitize
+      opts = tuple[2] ? tuple[2].map{|k,v| "#{k} #{v}"}.join(' ').sanitize : ""
       system "say #{opts} #{str}"
       ts.write ["say", str, "success"]  # write response
     end
