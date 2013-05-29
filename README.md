@@ -1,14 +1,14 @@
-
 Linda Mac Say
 =============
 text to audible speech with RocketIO::Linda
 
 * https://github.com/shokai/linda-mac-say
-* watch tuple ["say", word]
+* watch tuple ["say", Word] and ["saykana", String]
 
 Dependencies
 ------------
 - say command in Mac OS
+- [SayKana](http://www.a-quest.com/quickware/saykana/)
 - Ruby 1.8.7 ~ 2.0.0
 - [LindaBase](https://github.com/shokai/linda-base)
 

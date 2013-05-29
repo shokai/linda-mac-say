@@ -26,6 +26,16 @@ linda.io.on :connect do  ## RocketIO's "connect" event
       ts.write ["say", str, "success"]  # write response
     end
   end
+
+  ts.watch ["saykana"] do |tuple|
+    p tuple
+    if tuple.size == 2 or (tuple.size == 3 and tuple[2].kind_of? Hash)
+      str = tuple[1].sanitize
+      opts = tuple[2] ? tuple[2].map{|k,v| "#{k} #{v}"}.join(' ').sanitize : ""
+      system "SayKana #{opts} #{str}"
+      ts.write ["say", str, "success"]  # write response
+    end
+  end
 end
 
 linda.io.on :disconnect do
