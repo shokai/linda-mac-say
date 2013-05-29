@@ -3,7 +3,7 @@ Linda Mac Say
 text to audible speech with RocketIO::Linda
 
 * https://github.com/shokai/linda-mac-say
-* watch Tuples ["say", String] and ["saykana", String] and speech.
+* watch Tuples ["say", String] and ["saykana", String].
 * write a Tuple ["say", String, "success"] or ["say", String, "fail"].
 
 Dependencies
@@ -24,7 +24,7 @@ Install Dependencies
 Run
 ---
 
-set ENV var "LINDA_BASE" and "LINDA_SPACE"
+set ENV var "LINDA_BASE", "LINDA_SPACE" and "SAYKANA"
 
     % export LINDA_BASE=http://linda.example.com
     % export LINDA_SPACE=test
